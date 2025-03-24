@@ -47,7 +47,14 @@ export default class Game {
     this.controlPanel = null;
 
     // Socket connection
-    this.socket = io();
+    this.socket = io('wss://sumo-ball-game.fly.dev', {
+      transports: ['websocket'],
+      secure: true,
+      rejectUnauthorized: false,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000
+    });
 
     // Bind methods
     this.animate = this.animate.bind(this);
@@ -77,7 +84,6 @@ export default class Game {
     this.createPlatform();
     this.createWater();
     this.createAtmosphere();
-    this.initSocketEvents();
     this.initInputEvents();
     this.createControlPanel();
 

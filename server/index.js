@@ -22,7 +22,17 @@ const {
 // Initialize express app and server
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+  transports: ['websocket'],
+  allowEIO3: true,
+  pingTimeout: 60000,
+  pingInterval: 25000
+});
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '../public')));
@@ -383,6 +393,13 @@ io.on('connection', (socket) => {
   });
 });
 
+// Start server
+const PORT = process.env.PORT || 4111;
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+  console.log(`WebSocket server ready for connections`);
+});
+
 // Game loop
 setInterval(() => {
   if (gameState === GAME_STATES.PLAYING) {
@@ -544,11 +561,3 @@ function applyPowerupEffect(player, powerup) {
     activePowerupEndsAt: Date.now() + powerup.duration
   });
 }
-
-// Start server
-const PORT = process.env.PORT || 4111;
-const HOST = process.env.HOST || '0.0.0.0';
-server.listen(PORT, HOST, () => {
-  console.log(`Server running on http://${HOST}:${PORT}`);
-  console.log(`Game available at http://${HOST === '0.0.0.0' ? 'localhost' : HOST}:${PORT}`);
-});
