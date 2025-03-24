@@ -1,0 +1,26 @@
+app = "sumo-ball-game"
+primary_region = "sjc"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[http_service]
+  internal_port = 4111
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[services.ports]]
+  handlers = ["http"]
+  port = 80
+  force_https = true
+
+[[services.ports]]
+  handlers = ["tls", "http"]
+  port = 443
+
+[services.concurrency]
+  type = "connections"
+  hard_limit = 25
+  soft_limit = 20

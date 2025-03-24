@@ -1,0 +1,35 @@
+{
+  "name": "ai-game-ball",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "postinstall": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [],
+  "author": "Lacy Morrow <me@lacymorrow.com> (http://lacymorrow.com/)",
+  "license": "MIT",
+  "description": "3D multiplayer sumo ball game",
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "express": "^4.21.2",
+    "gsap": "^3.12.7",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "three": "^0.174.0",
+    "username-generator": "^1.1.0"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
+  }
+}
