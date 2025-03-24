@@ -397,35 +397,40 @@ export default class Game {
   }
 
   updatePlatformSize(size) {
-    // Update platform size
-    this.platformSize = size;
+    if (!this.platform) return; // Guard against the platform not being initialized yet
 
-    // Update platform edge if it exists
+    // Store current platform position and rotation
+    const currentPosition = this.platform.position.clone();
+    const currentRotation = this.platform.rotation.clone();
+
+    // Remove the current platform and edge
     if (this.platformEdge) {
-      this.platformEdge.geometry.dispose();
-      this.platformEdge.geometry = new THREE.TorusGeometry(size, 0.3, 16, 100);
+      this.scene.remove(this.platformEdge);
     }
 
-    // Don't recreate the whole platform, just update its scale
-    if (this.platform) {
-      this.platform.scale.set(size / this.platformSize, 1, size / this.platformSize);
-    } else {
-      // Initial creation if platform doesn't exist yet
-      const geometry = new THREE.CylinderGeometry(this.platformSize, this.platformSize, 1, 32);
-      const material = new THREE.MeshStandardMaterial({
-        color: 0x999999,
-        roughness: 0.6,
-        metalness: 0.3
-      });
+    // Update with new size, but don't remove from scene
+    const geometry = new THREE.CylinderGeometry(size, size, 1, 32);
+    this.platform.geometry.dispose();
+    this.platform.geometry = geometry;
 
-      this.platform = new THREE.Mesh(geometry, material);
-      this.platform.scale.set(size / this.platformSize, 1, size / this.platformSize);
-      this.platform.position.y = -0.5;
-      this.platform.receiveShadow = true;
-      this.scene.add(this.platform);
-    }
+    // Restore position and rotation
+    this.platform.position.copy(currentPosition);
+    this.platform.rotation.copy(currentRotation);
 
-    // Update the solo play helpers to match new platform size
+    // Add platform edge with glow effect
+    const edgeGeometry = new THREE.TorusGeometry(size, 0.3, 16, 100);
+    const edgeMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff3030,
+      transparent: true,
+      opacity: 0.9
+    });
+
+    this.platformEdge = new THREE.Mesh(edgeGeometry, edgeMaterial);
+    this.platformEdge.rotation.x = Math.PI / 2;
+    this.platformEdge.position.y = 0;
+    this.scene.add(this.platformEdge);
+
+    // Update the visuals of the platform
     this.updateSoloPlayHelpers();
   }
 
@@ -442,8 +447,12 @@ export default class Game {
     this.socket.on(MSG_TYPES.GAME_STATE, (data) => {
       const previousState = this.gameState;
       this.gameState = data.state;
-      this.platformSize = data.platformSize;
-      this.updatePlatformSize(this.platformSize);
+
+      // Only update platform size when the value actually changes
+      if (data.platformSize !== undefined && data.platformSize !== this.platformSize) {
+        this.platformSize = data.platformSize;
+        this.updatePlatformSize(this.platformSize);
+      }
 
       // Update UI with better state information
       const statusElement = document.getElementById('status');

@@ -1,70 +1,62 @@
-# Sumo Ball Battle
+# Sumo Ball Game
 
-A 3D multiplayer sumo ball game where players push each other off a shrinking platform.
+A multiplayer physics-based game where players control balls on a shrinking platform, trying to push each other off while collecting power-ups.
+
+## Live Demo
+
+Play the game at [https://sumo-ball-game.fly.dev/](https://sumo-ball-game.fly.dev/)
 
 ## Features
 
-- Real-time multiplayer gameplay
-- Camera-relative controls
-- Physics-based interactions
-- Power-ups with special abilities
-- Platform that shrinks over time
-- Solo play practice mode
-- Mobile touch controls
+- Real-time multiplayer gameplay using Socket.IO
+- 3D graphics with Three.js
+- Physics-based movement and collisions
+- Shrinking platform for increased challenge
+- Power-ups that affect gameplay
+- Mobile-friendly controls with on-screen joystick
+- Solo play option when no other players are online
 
-## Development
+## Running Locally
 
-```bash
-# Install dependencies
-npm install
+### Prerequisites
 
-# Run development server (with hot reload)
-npm run dev
+- Node.js v18 or higher
+- npm
 
-# Build for production
-npm run build
+### Installation
 
-# Start production server
-npm start
-```
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/yourusername/vibejam-sumoball.git
+   cd vibejam-sumoball
+   ```
 
-For development, run both `npm run dev` and `npm start` in separate terminals.
-- Access the development server at http://localhost:9001
-- The backend server runs on http://localhost:4111
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Deployment Options
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-### Render.com (Recommended)
+4. Open your browser and navigate to:
+   ```
+   http://localhost:4111
+   ```
 
-1. Create a new account on [Render.com](https://render.com)
-2. Connect your GitHub repository
-3. Click "New Web Service"
-4. Select your repository
-5. Use the following settings:
-   - Name: sumo-ball-game
-   - Environment: Node
-   - Build Command: `npm install && npm run build`
-   - Start Command: `npm start`
-   - Plan: Free
+## Project Structure
 
-### Railway.app
+- `/src` - Client-side code
+  - `/client` - Game client logic using Three.js
+  - `/shared` - Shared constants and utilities
+- `/server` - Node.js server using Express and Socket.IO
+- `/public` - Static assets and bundled client code
 
-1. Create a new account on [Railway.app](https://railway.app)
-2. Create a new project and connect your GitHub repository
-3. Add a new service with Node.js template
-4. Configure environment variables if needed
-5. Deploy
+## Deployment
 
-### Fly.io
-
-1. Install the [Fly CLI](https://fly.io/docs/hands-on/install-flyctl/)
-2. Login with `fly auth login`
-3. Launch your app with `fly launch`
-4. Deploy with `fly deploy`
-
-## Environment Variables
-
-- `PORT`: The port to run the server on (defaults to 4111)
+This project is deployed on Fly.io. See the [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions and configuration details.
 
 ## License
 
