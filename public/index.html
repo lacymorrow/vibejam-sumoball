@@ -1,0 +1,119 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sumo Ball Battle</title><style>body {
+			margin: 0;
+			overflow: hidden;
+			background-color: #000;
+			color: #fff;
+			font-family: Arial, sans-serif;
+		}
+
+		canvas {
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+
+		#ui {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			padding: 10px;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius: 5px;
+			z-index: 10;
+			max-width: 300px;
+		}
+
+		#players {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			padding: 10px;
+			background-color: rgba(0, 0, 0, 0.5);
+			border-radius: 5px;
+			z-index: 10;
+		}
+
+		#game-over {
+			display: none;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: rgba(0, 0, 0, 0.8);
+			padding: 20px;
+			border-radius: 10px;
+			text-align: center;
+			z-index: 20;
+		}
+
+		button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		#joystick {
+			position: absolute;
+			bottom: 30px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 120px;
+			height: 120px;
+			background-color: rgba(0, 0, 0, 0.3);
+			border-radius: 50%;
+			display: none;
+			z-index: 15;
+			touch-action: none;
+		}
+
+		#joystick-knob {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 40px;
+			height: 40px;
+			background-color: #fff;
+			border-radius: 50%;
+		}
+
+		#solo-tips {
+			display: none;
+			margin-top: 10px;
+			padding: 5px;
+			border-left: 3px solid #4CAF50;
+			font-style: italic;
+		}
+
+		.highlight {
+			color: #4CAF50;
+			font-weight: bold;
+		}
+
+		.score {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 5px;
+		}
+
+		@media (max-width: 768px) {
+			#joystick {
+				display: block;
+			}
+
+			#ui p {
+				font-size: 12px;
+			}
+
+			#ui h2 {
+				font-size: 16px;
+			}
+		}</style><script defer="defer" src="js/bundle.js"></script></head><body><div id="ui"><h2>Sumo Ball Battle</h2><p>Controls: <span class="highlight">WASD</span> or <span class="highlight">Arrow Keys</span> to move</p><p>Goal: Stay on the platform as long as possible!</p><p id="tip">Build momentum to make exciting moves around the platform.</p><div id="status">Connecting...</div><div id="solo-tips"><p>Solo play tips:</p><ul><li>Follow the blue arrows for movement ideas</li><li>Try to stay balanced near the center</li><li>See how long you can stay on as the platform shrinks!</li></ul><div class="score">Time: <span id="timer">0</span>s</div></div></div><div id="players"><h3>Players</h3><div id="player-list"></div></div><div id="game-over"><h2 id="winner-text">Game Over</h2><p id="score-text"></p><button id="restart-button">Play Again</button></div><div id="joystick"><div id="joystick-knob"></div></div></body></html>
