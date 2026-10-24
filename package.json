@@ -19,7 +19,7 @@
   "description": "3D multiplayer sumo ball game",
   "dependencies": {
     "cannon-es": "^0.20.0",
-    "express": "^4.21.2",
+    "express": "^4.22.3",
     "gsap": "^3.12.7",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
